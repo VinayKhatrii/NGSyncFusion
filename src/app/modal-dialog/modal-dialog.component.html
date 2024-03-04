@@ -1,13 +1,14 @@
 
 <mat-dialog-content class="fixed-modal">
+  
   <ejs-pdfviewer 
   id="pdfViewer" 
   #pdfviewer 
-  (documentLoad)='loaded()' 
+  (documentLoad)='documentLoaded($event)' 
   [enableFormFieldsValidation]=true
   [toolbarSettings]="toolbarSettings"
   [resourceUrl]='resource' 
-  
+  [documentPath]="document"
   style="height:640px;display:block">
 </ejs-pdfviewer>
 <div class="d-flex">

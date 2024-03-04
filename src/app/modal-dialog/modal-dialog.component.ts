@@ -17,10 +17,15 @@ import {
   ThumbnailViewService, ToolbarService, NavigationService,
   AnnotationService, TextSearchService, TextSelectionService,
   PrintService, FormDesignerService, FormFieldsService,
-  PdfViewerModule,
+  PdfViewerModule, TextSearch,
+  PdfViewer, TextSelection, 
   PdfViewerComponent, TextFieldSettings, SignatureFieldSettings, InitialFieldSettings,
   CheckBoxFieldSettings, RadioButtonFieldSettings,
-  ValidateFormFieldsArgs
+  ValidateFormFieldsArgs,
+  Print,
+  Navigation,
+  FormFields,
+  FormDesigner
 } from '@syncfusion/ej2-angular-pdfviewer';
 import { data } from "./fakedata";
 
@@ -51,8 +56,9 @@ export class ModalDialogComponent implements OnInit {
 
   @ViewChild('pdfviewer')
   public pdfviewerControl?: PdfViewerComponent;
-  public document: string = 'assets/jfs.pdf';
+  public document: string = 'http://localhost:4200/assets/jfs.pdf';
   public resource: string = "https://cdn.syncfusion.com/ej2/23.1.43/dist/ej2-pdfviewer-lib";
+
 
   data = data;
 
@@ -65,9 +71,9 @@ export class ModalDialogComponent implements OnInit {
 
   }
   isFormCorrect: boolean = false;
-  reset(){
+  reset() {
     this.pdfviewerControl?.resetFormFields()
-    
+
   }
   validateFormFields(): void {
     this.saveFieldsAndLock()
@@ -86,10 +92,29 @@ export class ModalDialogComponent implements OnInit {
 
         }
       }
-      
+
       alert("Submitted")
     }
-  }
+
+  } 
+    documentLoaded(e: any): void {
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 180, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 487, Y: 180, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 212, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 487, Y: 212, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 247, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 487, Y: 247, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 281, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 487, Y: 281, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 315, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 350, Width: 250, Height: 20 },} as TextFieldSettings);
+      
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 290, Y: 740, Width: 20, Height: 20 },isChecked: false,} as CheckBoxFieldSettings);
+      
+      this.pdfviewerControl?.formDesignerModule.addFormField('SignatureField', {name: 'Sign',bounds: { X: 44, Y: 893, Width: 200, Height: 43 },} as SignatureFieldSettings);
+      
+    }
+  
 
 
   saveFieldsAndLock() {
@@ -155,3 +180,4 @@ export class ModalDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 }
+
